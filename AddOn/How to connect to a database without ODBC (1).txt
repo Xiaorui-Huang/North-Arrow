@@ -1,0 +1,33 @@
+Full instructions are available here:  
+http://stackoverflow.com/questions/21955256/manipulating-an-access-database-from-java-without-odbc
+ 
+Add the folllowing jar files to your project. 
+
+commons-lang-2.6.jar
+commons-logging-1.1.3.jar
+hsqldb.jar
+jackcess-2.0.4.jar
+ucanaccess-2.0.8.jar
+
+Sample code to connect:
+ 
+        try 
+	{
+	    String filename = (new File("PATdatabase.accdb")).getAbsolutePath();
+ 
+            Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + filename);
+ 
+            Statement s = conn.createStatement();
+            String query = "SELECT * FROM MemberDetails";
+            ResultSet rs = s.executeQuery(query);
+ 
+            while (rs.next()) 
+	    {
+                System.out.println(rs.getString("MemberName"));
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            System.out.println("got exception " + ex.getMessage() );
+        }
+ 
